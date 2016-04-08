@@ -65,6 +65,17 @@ $('.test3').ddcascad({
     delimiter    : '&lt;br&gt;';
 }); 
         </pre>
+        <h3>Additional attributes in options</h3>
+        <p><em>Adding data-lvl attribute if lvl key exist</em></p>
+        <div class="test5"></div>
+        <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
+
+$('.test3').ddcascad({
+    object       : tank_list,
+    objectShow   : 'en',
+    moreData     : { 'lvl' : 'data-lvl'},
+}); 
+        </pre>
         <script>
             var tank_list;
             $.getJSON("test.json", function(response) {
@@ -91,6 +102,12 @@ $('.test3').ddcascad({
                     delimiter    : '<br>',
                     object       : tank_list,
                     objectShow   : 'en',
+                    moreData     : { 'lvl' : 'data-lvl'},
+                });  
+                $('.test5').ddcascad({
+                    object       : tank_list,
+                    objectShow   : 'en',
+                    moreData     : { 'lvl' : 'data-lvl'},
                 });  
             });
         </script> 

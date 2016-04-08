@@ -60,6 +60,14 @@
                 if(val == current[inner.count]){
                     inner.insert += ' selected="selected" ';    
                 }
+                if(Object.keys(settings.moreData).length !== 0){
+                    for(var property in settings.moreData){
+                        if(typeof obj[val][property] !== 'undefined'){
+                            inner.insert += ' '+settings.moreData[property]+'="'+obj[val][property]+'" ';  
+                        }    
+                    }
+                }
+                //if(settings.moreData.)
                 inner.insert += '>' + obj[val][settings.objectShow];
                 inner.insert += '</option">';
             });     
@@ -110,6 +118,7 @@
             delimiter   :  '',
             sortKey     :  'sort',
             idAttribute :  'data-id',
+            moreData    :  {},
             onLastChoise: function(){},
             }, callerSettings || {});       
         settings.current = creatSetted(settings.object, settings.current,settings.sortKey);
