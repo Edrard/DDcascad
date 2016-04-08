@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html class="nav-no-js">
+    <head>
+        <meta charset="utf-8">
+        <!--[if IE 7]><html lang="ru" class="ie7"><![endif]-->
+        <!--[if IE 8]><html lang="ru" class="ie8"><![endif]-->
+        <!--[if IE 9]><html lang="ru" class="ie9"><![endif]-->
+        <!--[if (gt IE 9)|!(IE)]><html lang="ru"><![endif]-->
+        <!--[if !IE]><html lang="ru"><![endif]-->
+        <title>DDCascade Example</title>
+        <link rel="shortcut icon" href="/favicon/favicon.ico">
+        <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-touch-icon-60x60.png">
+        <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32">
+        <meta name="msapplication-TileColor" content="#603cba">
+        <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> 
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.migrate/jquery-migrate-1.2.1.min.js"></script>
+        <script src="../jquery.ddcascad.js"></script>
+
+    </head>
+    <body>
+        <div class="test"></div>
+        <div class="test"></div>
+
+        <script>
+            var tank_list;
+            $.getJSON("test.json", function(response) {
+                console.log(response);
+                tank_list = response;
+                $('.test').ddcascad({
+                    //current : ['usa','heavyTank','14881'],
+                    object       : tank_list,
+                    objectShow   : 'en',
+                });  
+            });
+        </script> 
+
+    </body>
+</html>
