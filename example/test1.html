@@ -23,19 +23,60 @@
 
     </head>
     <body>
+        <h3>Base Usage</h3>
         <div class="test"></div>
         <div class="test"></div>
+        <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
 
+$('.test').ddcascad({
+    object       : tank_list,
+    objectShow   : 'en',
+});  
+        </pre>
+        <h3>Predefine Selected</h3>
+        <div class="test2"></div>
+        <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
+
+$('.test2').ddcascad({
+    current : ['usa','heavyTank','14881'],
+    object       : tank_list,
+    objectShow   : 'en',
+}); 
+        </pre>
+        <h3>Custome Function on last dropdown select</h3>
+        <div class="test3"></div>
+        <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
+
+$('.test3').ddcascad({
+    object       : tank_list,
+    objectShow   : 'en',
+    onLastChoise : function(state, settings, e){
+        alert($(this).find("option:selected").text());
+    }
+}); 
+        </pre>
         <script>
             var tank_list;
             $.getJSON("test.json", function(response) {
-                console.log(response);
                 tank_list = response;
                 $('.test').ddcascad({
                     //current : ['usa','heavyTank','14881'],
                     object       : tank_list,
                     objectShow   : 'en',
                 });  
+                $('.test2').ddcascad({
+                    current : ['usa','heavyTank','14881'],
+                    object       : tank_list,
+                    objectShow   : 'en',
+                }); 
+                $('.test3').ddcascad({
+                    //current : ['usa','heavyTank','14881'],
+                    object       : tank_list,
+                    objectShow   : 'en',
+                    onLastChoise : function(state, settings, e){
+                        alert($(this).find("option:selected").text());
+                    }
+                }); 
             });
         </script> 
 
