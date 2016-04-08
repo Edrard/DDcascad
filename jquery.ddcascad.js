@@ -50,6 +50,9 @@
             return this;
         },
         creatDrop : function(settings,current,obj){
+            if(this.count > 0){
+                this.insert += settings.delimiter;    
+            }
             this.insert += '<select '+settings.idAttribute+'="'+ this.count +'" class="'+settings.innerClass+'">';
             var inner = this;
             $.each(obj[settings.sortKey], function(ind,val){
@@ -104,6 +107,7 @@
             innerClass  :  'ddcascad_drop',
             object      :  {},
             objectShow  :  'ru',
+            delimiter   :  '',
             sortKey     :  'sort',
             idAttribute :  'data-id',
             onLastChoise: function(){},
@@ -131,17 +135,17 @@
             $(this).find('select').on('change', function (e) {
                 var value = $(this).val();
                 // Setting new current for dropdowns
-                state[index]['current'][1*$(this).data('id')] = value;
-                state[index]['current'].splice(1*$(this).data('id')+1, state[index].current.length);
+                state[index]['current'][1*$(this).attr(settings.idAttribute)] = value;
+                state[index]['current'].splice(1*$(this).attr(settings.idAttribute)+1, state[index].current.length);
                 state[index]['current'] = creatSetted(settings.object, state[index]['current'],settings.sortKey);
                 // If its last element, run custom function onLastChoise()
-                if(state[index].current.length == 1+1*$(this).data('id')){
+                if(state[index].current.length == 1+1*$(this).attr(settings.idAttribute)){
                     if (typeof settings.onLastChoise == 'function') {
                         settings.onLastChoise.call(this, state[index], settings, e);
                     }
                     // Else make new dropdowns menus
                 }else{
-                    for (i = 1+1*$(this).data('id'); i < state[index].current.length; i++) {
+                    for (i = 1+1*$(this).attr(settings.idAttribute); i < state[index].current.length; i++) {
                         var single = Object.create(Single).constructor();
                         single.recursiveObjectByCount(settings,state[index]['current'],settings.object,i);
                         $(this).parent().find('select.'+settings.innerClass+'['+settings.idAttribute+'="'+i+'"]').html(single.insert);

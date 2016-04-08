@@ -55,6 +55,16 @@ $('.test3').ddcascad({
     }
 }); 
         </pre>
+        <h3>Using delimiter</h3>
+        <div class="test4"></div>
+        <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
+
+$('.test3').ddcascad({
+    object       : tank_list,
+    objectShow   : 'en',
+    delimiter    : '&lt;br&gt;';
+}); 
+        </pre>
         <script>
             var tank_list;
             $.getJSON("test.json", function(response) {
@@ -77,6 +87,11 @@ $('.test3').ddcascad({
                         alert($(this).find("option:selected").text());
                     }
                 }); 
+                $('.test4').ddcascad({
+                    delimiter    : '<br>',
+                    object       : tank_list,
+                    objectShow   : 'en',
+                });  
             });
         </script> 
 
