@@ -59,7 +59,7 @@ $('.test3').ddcascad({
         <div class="test4"></div>
         <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
 
-$('.test3').ddcascad({
+$('.test4').ddcascad({
     object       : tank_list,
     objectShow   : 'en',
     delimiter    : '&lt;br&gt;';
@@ -70,7 +70,7 @@ $('.test3').ddcascad({
         <div class="test5"></div>
         <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
 
-$('.test3').ddcascad({
+$('.test5').ddcascad({
     object       : tank_list,
     objectShow   : 'en',
     moreData     : { 'lvl' : 'data-lvl'},
@@ -80,11 +80,15 @@ $('.test3').ddcascad({
             var tank_list;
             $.getJSON("test.json", function(response) {
                 tank_list = response;
-                $('.test').ddcascad({
+               $('.test').ddcascad({
                     //current : ['usa','heavyTank','14881'],
                     object       : tank_list,
                     objectShow   : 'en',
                 });  
+                $('.test').ddcascad({
+                    //current : ['usa','heavyTank','14881'],
+                    object       : tank_list,
+                    objectShow   : 'en',
                 $('.test2').ddcascad({
                     current : ['usa','heavyTank','14881'],
                     object       : tank_list,

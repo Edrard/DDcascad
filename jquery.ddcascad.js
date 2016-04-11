@@ -9,17 +9,17 @@
     /**
     *  Single menu creater
     */
-    Single = {
+    var Single = {
         constructor :  function(count,insert){
-            var count = typeof count !== 'undefined' ? count : 0;
-            var insert = typeof insert !== 'undefined' ? insert : '';
+            count = typeof count !== 'undefined' ? count : 0;
+            insert = typeof insert !== 'undefined' ? insert : '';
             this.count = count;
             this.insert = insert;
             return this;
         },
         recursiveObjectByCount : function(settings,current,obj,position){
             if(position == this.count){
-                Initiate.creatDrop.call(this, settings,current,obj)
+                Initiate.creatDrop.call(this, settings,current,obj);
                 return;
             }
             this.count++;
@@ -35,7 +35,7 @@
                 }  
             }       
         }
-    }
+    };
     /**
     *  Main prototype Class which creating dropdown menus
     *  @count count dropdown menus
@@ -43,8 +43,8 @@
     */
     var Initiate = {
         constructor :  function(count,insert){
-            var count = typeof count !== 'undefined' ? count : 0;
-            var insert = typeof insert !== 'undefined' ? insert : '';
+            count = typeof count !== 'undefined' ? count : 0;
+            insert = typeof insert !== 'undefined' ? insert : '';
             this.count = count;
             this.insert = insert;
             return this;
@@ -91,7 +91,7 @@
         cleanAppend :  function(){
             this.insert = ''; 
         }
-    }   
+    };   
     /**
     * Prototype Class with current selected items in dropdown groups
     *  @current Current state
@@ -99,8 +99,8 @@
     */
     var State = {
         constructor :  function(current,index){
-            var index = typeof index !== 'undefined' ? index : 0;
-            var current = typeof current !== 'undefined' ? current : [];
+            index = typeof index !== 'undefined' ? index : 0;
+            current = typeof current !== 'undefined' ? current : [];
             this.index = index;
             this.current = [];
             for(var id in current){
@@ -108,7 +108,7 @@
             }
             return this;
         },
-    } 
+    }; 
     $.fn.ddcascad = function (callerSettings) {   
         var settings = $.extend({
             current     :  [],
@@ -130,6 +130,10 @@
         //Recursivly create dropdown forms
         init.recursiveMoveOverObject(settings,settings.object);
 
+        var Destroy = function(){
+            console.log(init);
+        } 
+        
         return main.each(function(index,value){
             //Append data in element
             $(this).append(init.insert);
@@ -139,14 +143,13 @@
             if(len - 1 == index){
                 init.cleanAppend();
             }
-            var selector = this;
             //On change events
             $(this).find('select').on('change', function (e) {
                 var value = $(this).val();
                 // Setting new current for dropdowns
-                state[index]['current'][1*$(this).attr(settings.idAttribute)] = value;
-                state[index]['current'].splice(1*$(this).attr(settings.idAttribute)+1, state[index].current.length);
-                state[index]['current'] = creatSetted(settings.object, state[index]['current'],settings.sortKey);
+                state[index].current[1*$(this).attr(settings.idAttribute)] = value;
+                state[index].current.splice(1*$(this).attr(settings.idAttribute)+1, state[index].current.length);
+                state[index].current = creatSetted(settings.object, state[index].current,settings.sortKey);
                 // If its last element, run custom function onLastChoise()
                 if(state[index].current.length == 1+1*$(this).attr(settings.idAttribute)){
                     if (typeof settings.onLastChoise == 'function') {
@@ -154,11 +157,11 @@
                     }
                     // Else make new dropdowns menus
                 }else{
-                    for (i = 1+1*$(this).attr(settings.idAttribute); i < state[index].current.length; i++) {
-                        var single = Object.create(Single).constructor();
-                        single.recursiveObjectByCount(settings,state[index]['current'],settings.object,i);
+                    var single;
+                    for (var i = 1+1*$(this).attr(settings.idAttribute); i < state[index].current.length; i++) {
+                        single = Object.create(Single).constructor();
+                        single.recursiveObjectByCount(settings,state[index].current,settings.object,i);
                         $(this).parent().find('select.'+settings.innerClass+'['+settings.idAttribute+'="'+i+'"]').html(single.insert);
-                        delete single;
                     }    
                 }
             });
@@ -168,8 +171,8 @@
     * Function Creat array with selected elements in dropdowns
     */
     var creatSetted = function(obj,stack,sortKey,level){
-        var level = typeof level !== 'undefined' ? level : 0;
-        var stack = typeof stack !== 'undefined' ? stack : [];
+        level = typeof level !== 'undefined' ? level : 0;
+        stack = typeof stack !== 'undefined' ? stack : [];
         for(var property in obj){
             if(obj.hasOwnProperty(property)) {
                 if(typeof obj[property] == "object"){
@@ -186,5 +189,5 @@
             }    
         }
         return stack;     
-    } 
+    }; 
 })(jQuery); 
