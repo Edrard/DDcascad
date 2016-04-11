@@ -1,5 +1,5 @@
 /**
-*  DDCascade - v 1.0
+*  DDCascade - v 1.0.1
 *  Small jQuery plugin for creating depended dropdown menus from bas Object
 * 
 *  Made by Aleksandr Ustinov
@@ -52,8 +52,14 @@
         creatDrop : function(settings,current,obj){
             if(this.count > 0){
                 this.insert += settings.delimiter;    
+            }console.log(obj);
+            this.insert += '<select ';
+            if(settings.objectId){
+                if(typeof obj[settings.objectId] !== 'undefined'){
+                    this.insert += ' id="' + obj[settings.objectId] + '" ';
+                }    
             }
-            this.insert += '<select '+settings.idAttribute+'="'+ this.count +'" class="'+settings.innerClass+'">';
+            this.insert += settings.idAttribute+'="'+ this.count +'" class="'+settings.innerClass+'">';
             var inner = this;
             $.each(obj[settings.sortKey], function(ind,val){
                 inner.insert += '<option value="'+val+'"';
@@ -111,15 +117,16 @@
     }; 
     $.fn.ddcascad = function (callerSettings) {   
         var settings = $.extend({
-            current     :  [],
-            innerClass  :  'ddcascad_drop',
-            object      :  {},
-            objectShow  :  'ru',
-            delimiter   :  '',
-            sortKey     :  'sort',
-            idAttribute :  'data-id',
-            moreData    :  {},
-            onLastChoise: function(){},
+            current     :  [],     //Preselected    
+            innerClass  :  'ddcascad_drop', //selected class
+            object      :  {}, //Main Object
+            objectId    :  '',
+            objectShow  :  'ru', //Object key for options text
+            delimiter   :  '',   //Delimiter between selects
+            sortKey     :  'sort', //key for sorting array
+            idAttribute :  'data-id', //Select id attribute, CAN'T BE SKIPED!
+            moreData    :  {}, // Additional data in options
+            onLastChoise: function(){}, // Function on last dropdown
             }, callerSettings || {});       
         settings.current = creatSetted(settings.object, settings.current,settings.sortKey);
         var main = this;
@@ -133,7 +140,7 @@
         var Destroy = function(){
             console.log(init);
         } 
-        
+
         return main.each(function(index,value){
             //Append data in element
             $(this).append(init.insert);

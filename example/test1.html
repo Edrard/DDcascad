@@ -66,13 +66,14 @@ $('.test4').ddcascad({
 }); 
         </pre>
         <h3>Additional attributes in options</h3>
-        <p><em>Adding data-lvl attribute if lvl key exist</em></p>
+        <p><em>Adding data-lvl attribute if lvl key exist and set id element for select</em></p>
         <div class="test5"></div>
         <pre style="background: #f0f0f0; border: 1px dotted #ccc; width:500px">
 
 $('.test5').ddcascad({
     object       : tank_list,
     objectShow   : 'en',
+    objectId     : 'id',
     moreData     : { 'lvl' : 'data-lvl'},
 }); 
         </pre>
@@ -85,11 +86,6 @@ $('.test5').ddcascad({
                     object       : tank_list,
                     objectShow   : 'en',
                 });  
-                $('.test').ddcascad({
-                    //current : ['usa','heavyTank','14881'],
-                    object       : tank_list,
-                    objectShow   : 'en',
-                }); 
                 $('.test2').ddcascad({
                     current : ['usa','heavyTank','14881'],
                     object       : tank_list,
@@ -112,6 +108,7 @@ $('.test5').ddcascad({
                 $('.test5').ddcascad({
                     object       : tank_list,
                     objectShow   : 'en',
+                    objectId     : 'id',
                     moreData     : { 'lvl' : 'data-lvl'},
                 });  
             });
